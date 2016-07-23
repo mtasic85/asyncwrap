@@ -7,12 +7,6 @@ import functools
 from aiowrap import Async
 
 
-async def do_async_for(loop, s, e):
-    async for i in Async.For(loop, range(s, e)):
-        await asyncio.sleep(random.random())
-        print('do_async_for', i)
-
-
 async def do_async_with(loop):
     async with Async.With(loop, tempfile.TemporaryFile()) as f:
         await Async.Call(loop, f.write, b'hello world')
@@ -21,6 +15,12 @@ async def do_async_with(loop):
         await asyncio.sleep(random.random())
         data = await Async.Call(loop, f.read)
         print('do_async_with', data)
+
+
+async def do_async_for(loop, s, e):
+    async for i in Async.For(loop, range(s, e)):
+        await asyncio.sleep(random.random())
+        print('do_async_for', i)
 
 
 async def do_async_call(loop, f, t):

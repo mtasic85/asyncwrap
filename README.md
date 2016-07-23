@@ -1,7 +1,16 @@
 
 # aiowrap
 
-High-level asyncio wrappers for calls, for and with statements.
+aiowrap helps wrapping synchronous calls into asynchronous ones, and it based
+on asyncio and threading modules.
+
+For example, sqlalchemy is synchronous and not built to be compatible with
+asyncio. aiowrap offers simple wrappers which if used in right places can make
+code run concurrent and be faster. For more information please check examples
+directory.
+
+aiowrap is library/framework agnostic and can be used with any Python >=3.5
+code.
 
 
 # Example
@@ -16,12 +25,6 @@ import functools
 from aiowrap import Async
 
 
-async def do_async_for(loop, s, e):
-    async for i in Async.For(loop, range(s, e)):
-        await asyncio.sleep(random.random())
-        print('do_async_for', i)
-
-
 async def do_async_with(loop):
     async with Async.With(loop, tempfile.TemporaryFile()) as f:
         await Async.Call(loop, f.write, b'hello world')
@@ -30,6 +33,12 @@ async def do_async_with(loop):
         await asyncio.sleep(random.random())
         data = await Async.Call(loop, f.read)
         print('do_async_with', data)
+
+
+async def do_async_for(loop, s, e):
+    async for i in Async.For(loop, range(s, e)):
+        await asyncio.sleep(random.random())
+        print('do_async_for', i)
 
 
 async def do_async_call(loop, f, t):
