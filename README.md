@@ -12,6 +12,21 @@ directory.
 aiowrap is library/framework agnostic and can be used with any Python >=3.5
 code.
 
+All you need can be found by importing:
+```python
+from aiowrap import Async
+```
+
+Async has following methods:
+```
+Async.set_default_loop
+Async.With
+Async.For
+Async.Call
+Async.ExecutorCall
+Async.ThreadCall
+```
+
 
 # Example
 
@@ -26,35 +41,35 @@ from aiowrap import Async
 
 
 async def do_async_with(loop):
-    async with Async.With(loop, tempfile.TemporaryFile()) as f:
-        await Async.Call(loop, f.write, b'hello world')
+    async with Async.With(tempfile.TemporaryFile()) as f:
+        await Async.Call(f.write, b'hello world')
         await asyncio.sleep(random.random())
-        await Async.Call(loop, f.seek, 0)
+        await Async.Call(f.seek, 0)
         await asyncio.sleep(random.random())
-        data = await Async.Call(loop, f.read)
+        data = await Async.Call(f.read)
         print('do_async_with', data)
 
 
 async def do_async_for(loop, s, e):
-    async for i in Async.For(loop, range(s, e)):
+    async for i in Async.For(range(s, e)):
         await asyncio.sleep(random.random())
         print('do_async_for', i)
 
 
 async def do_async_call(loop, f, t):
-    r = await Async.Call(loop, f, t)
+    r = await Async.Call(f, t)
     print('do_async_call', f, t, r)
     return r
 
 
 async def do_async_executor_call(loop, f, t):
-    r = await Async.ExecutorCall(loop, f, t)
+    r = await Async.ExecutorCall(f, t)
     print('do_async_executor_call', f, t, r)
     return r
 
 
 async def do_async_thread_call(loop, f, t):
-    r = await Async.ThreadCall(loop, f, t)
+    r = await Async.ThreadCall(f, t)
     print('do_async_thread_call', f, t, r)
     return r
 
@@ -66,6 +81,7 @@ def blocking_sleep(t):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
+    Async.set_default_loop(loop)
 
     tasks = [
         # with
