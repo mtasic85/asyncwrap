@@ -12,12 +12,12 @@ directory.
 aiowrap is library/framework agnostic and can be used with any Python >=3.5
 code.
 
-All you need can be found by importing:
+All you need can be found by importing single class called Async:
 ```python
 from aiowrap import Async
 ```
 
-Async has following methods:
+Async class has following methods:
 ```python
 Async.set_default_loop
 Async.With
