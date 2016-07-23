@@ -18,7 +18,7 @@ from aiowrap import Async
 ```
 
 Async has following methods:
-```
+```python
 Async.set_default_loop
 Async.With
 Async.For
