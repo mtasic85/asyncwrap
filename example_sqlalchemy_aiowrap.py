@@ -27,7 +27,8 @@ class Child(Base):
 
 
 dburl = 'sqlite:///sa.db'
-engine = create_engine(dburl)
+connect_args = {'check_same_thread': False}
+engine = create_engine(dburl, connect_args=connect_args)
 
 
 @event.listens_for(engine, "connect")
@@ -56,7 +57,7 @@ def create_session(engine):
 
 
 async def init(loop):
-    async with Async.With(loop, create_session(engine)) as session:
+    async with Async.With(create_session(engine)) as session:
         session.add_all([
             Parent(children=[Child() for j in range(100)])
             for i in range(100)
@@ -64,14 +65,15 @@ async def init(loop):
 
 
 async def get_all_parents(loop):
-    async with Async.With(loop, create_session(engine)) as session:
-        q = await Async.Call(loop, session.query, Parent)
-        parents = await Async.Call(loop, q.all)
+    async with Async.With(create_session(engine)) as session:
+        q = await Async.Call(session.query, Parent)
+        parents = await Async.Call(q.all)
 
     return parents
 
 
 loop = asyncio.get_event_loop()
+Async.set_default_loop(loop)
 
 tasks = [
     asyncio.ensure_future(get_all_parents(loop))

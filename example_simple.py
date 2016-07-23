@@ -29,6 +29,23 @@ async def do_async_call(loop, f, t):
     return r
 
 
+async def do_async_executor_call(loop, f, t):
+    r = await Async.ExecutorCall(loop, f, t)
+    print('do_async_executor_call', f, t, r)
+    return r
+
+
+async def do_async_thread_call(loop, f, t):
+    r = await Async.ThreadCall(loop, f, t)
+    print('do_async_thread_call', f, t, r)
+    return r
+
+
+def blocking_sleep(t):
+    time.sleep(t)
+    return t
+
+
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
 
@@ -39,10 +56,28 @@ if __name__ == '__main__':
         asyncio.ensure_future(do_async_for(loop, 20, 30)),
         
         asyncio.ensure_future(
-            do_async_call(loop, time.sleep, random.random() * 5)),
+            do_async_call(loop, blocking_sleep, random.random() * 5)),
         
         asyncio.ensure_future(
-            do_async_call(loop, time.sleep, random.random() * 5)),
+            do_async_call(loop, blocking_sleep, random.random() * 5)),
+
+        asyncio.ensure_future(
+            do_async_executor_call(loop, blocking_sleep, 5)),
+
+        asyncio.ensure_future(
+            do_async_executor_call(loop, blocking_sleep, 5)),
+
+        asyncio.ensure_future(
+            do_async_thread_call(loop, blocking_sleep, 5)),
+
+        asyncio.ensure_future(
+            do_async_thread_call(loop, blocking_sleep, 4)),
+
+        asyncio.ensure_future(
+            do_async_thread_call(loop, blocking_sleep, 3)),
+
+        asyncio.ensure_future(
+            do_async_thread_call(loop, blocking_sleep, 2)),
     ]
 
     loop.run_until_complete(asyncio.wait(tasks))
