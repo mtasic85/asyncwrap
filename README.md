@@ -6,7 +6,7 @@ High-level asyncio wrappers for calls, for and with statements.
 
 # Example
 
-```
+```python
 import time
 import random
 import asyncio
