@@ -97,7 +97,7 @@ class AsyncWith:
 
 
     async def __aexit__(self, exc_type, exc, tb):
-        self.ctx.__exit__(exc_type, exc, tb)
+        self.o.__exit__(exc_type, exc, tb)
 
 
     def __getattr__(self, attr):

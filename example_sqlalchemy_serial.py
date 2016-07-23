@@ -65,5 +65,5 @@ def get_all_parents():
     return parents
 
 
-for i in range(1000):
+for i in range(10000):
     get_all_parents()

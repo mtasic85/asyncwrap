@@ -8,7 +8,7 @@ from sqlalchemy import Integer, Column, ForeignKey
 from sqlalchemy.orm import relationship, joinedload, subqueryload, Session
 from sqlalchemy.ext.declarative import declarative_base
 
-from aiowrap import Async, AsyncCall, AsyncFor, AsyncWith
+from aiowrap import Async
 
 
 Base = declarative_base()
@@ -56,17 +56,17 @@ def create_session(engine):
 
 
 async def init(loop):
-    async with AsyncWith(loop, create_session(engine)) as session:
-        await session.add_all([
+    async with Async.With(loop, create_session(engine)) as session:
+        session.add_all([
             Parent(children=[Child() for j in range(100)])
             for i in range(100)
         ])
 
 
 async def get_all_parents(loop):
-    async with AsyncWith(loop, create_session(engine)) as session:
-        q = await Async.call(loop, session.query, Parent)
-        parents = await Async.call(loop, q.all)
+    async with Async.With(loop, create_session(engine)) as session:
+        q = await Async.Call(loop, session.query, Parent)
+        parents = await Async.Call(loop, q.all)
 
     return parents
 
@@ -75,7 +75,7 @@ loop = asyncio.get_event_loop()
 
 tasks = [
     asyncio.ensure_future(get_all_parents(loop))
-    for i in range(1)
+    for i in range(10000)
 ]
 
 loop.run_until_complete(init(loop))

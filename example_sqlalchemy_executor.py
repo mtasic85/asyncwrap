@@ -66,5 +66,5 @@ def get_all_parents():
 
 
 with ThreadPoolExecutor(max_workers=4) as executor:
-    futures_map = {executor.submit(get_all_parents): i for i in range(1000)}
+    futures_map = {executor.submit(get_all_parents): i for i in range(10000)}
     futures = as_completed(futures_map)
