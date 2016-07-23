@@ -1,3 +1,12 @@
+
+# aiowrap
+
+High-level asyncio wrappers for calls, for and with statements.
+
+
+# Example
+
+```
 import time
 import random
 import asyncio
@@ -88,3 +97,4 @@ if __name__ == '__main__':
 
     loop.run_until_complete(asyncio.wait(tasks))
     loop.close()
+```
