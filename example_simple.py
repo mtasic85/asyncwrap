@@ -4,28 +4,27 @@ import asyncio
 import tempfile
 import functools
 
-from aiowrap import AsyncCall, AsyncFor, AsyncWith
+from aiowrap import Async
 
 
 async def do_async_for(loop, s, e):
-    async for i in AsyncFor(loop, range(s, e)):
+    async for i in Async.For(loop, range(s, e)):
         await asyncio.sleep(random.random())
         print('do_async_for', i)
 
 
 async def do_async_with(loop):
-    async with AsyncWith(loop, tempfile.TemporaryFile()) as f:
-        await f.write(b'hello world')
+    async with Async.With(loop, tempfile.TemporaryFile()) as f:
+        await Async.Call(loop, f.write, b'hello world')
         await asyncio.sleep(random.random())
-        await f.seek(0)
+        await Async.Call(loop, f.seek, 0)
         await asyncio.sleep(random.random())
-        data = await f.read()
+        data = await Async.Call(loop, f.read)
         print('do_async_with', data)
 
 
 async def do_async_call(loop, f, t):
-    a = AsyncCall(loop, f)
-    r = await a(t)
+    r = await Async.Call(loop, f, t)
     print('do_async_call', f, t, r)
     return r
 
