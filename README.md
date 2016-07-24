@@ -1,20 +1,20 @@
 
-# aiowrap
+# asyncwrap
 
-aiowrap helps wrapping synchronous calls into asynchronous ones, and it based
+asyncwrap helps wrapping synchronous calls into asynchronous ones, and it based
 on asyncio and threading modules.
 
 For example, sqlalchemy is synchronous and not built to be compatible with
-asyncio. aiowrap offers simple wrappers which if used in right places can make
+asyncio. asyncwrap offers simple wrappers which if used in right places can make
 code run concurrent and be faster. For more information please check examples
 directory.
 
-aiowrap is library/framework agnostic and can be used with any Python >=3.5
+asyncwrap is library/framework agnostic and can be used with any Python >=3.5
 code.
 
 All you need can be found by importing single class called Async:
 ```python
-from aiowrap import Async
+from asyncwrap import Async
 ```
 
 Async class has following methods:
@@ -37,7 +37,7 @@ import asyncio
 import tempfile
 import functools
 
-from aiowrap import Async
+from asyncwrap import Async
 
 
 async def do_async_with(loop):
