@@ -8,7 +8,7 @@ from sqlalchemy import Integer, Column, ForeignKey
 from sqlalchemy.orm import relationship, joinedload, subqueryload, Session
 from sqlalchemy.ext.declarative import declarative_base
 
-from aiowrap import Async
+from asyncwrap import Async
 
 
 Base = declarative_base()

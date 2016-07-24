@@ -11,14 +11,14 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='aiowrap',
+    name='asyncwrap',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
     version='0.1.0',
 
-    description='High-level asyncio wrappers for calls, for and with statements',
+    description='Simple asynchronous wrappers for synchronous blocking code',
     long_description=long_description,
 
     # The project's main homepage.
@@ -52,7 +52,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='asyncio wrappers high-level',
+    keywords='async asyncio wrapper high-level',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -61,7 +61,7 @@ setup(
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
     #   py_modules=["my_module"],
-    py_modules=["aiowrap.py"],
+    py_modules=["asyncwrap"],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's

@@ -4,7 +4,7 @@ import asyncio
 import tempfile
 import functools
 
-from aiowrap import Async
+from asyncwrap import Async
 
 
 async def do_async_with(loop):
